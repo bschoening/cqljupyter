@@ -5,6 +5,7 @@ import re
 from ipykernel.kernelbase import Kernel
 
 from cqlsh.cqlshlib import cqlshmain, cql3handling, authproviderhandling
+from cqlshlib.cqlshmain import setup_cqlruleset
 
 __version__ = '2.0.0'
 
@@ -41,6 +42,7 @@ class CQLKernel(Kernel):
         self._start_cql()
 
     def _start_cql(self):
+        setup_cqlruleset(cql3handling)
         self.cqlshell = cqlshmain.Shell(self.hostname, self.port, username=self.user, ssl=self.ssl,
                                         auth_provider=self.auth)
         self.cqlshell.use_paging = False
